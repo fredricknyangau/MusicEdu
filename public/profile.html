@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - MusicEdu</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="container">
+        <a href="index.html" class="logo">MusicEdu</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Profile Section -->
+<section class="profile-section">
+    <div class="profile-container">
+        <h2>User Profile</h2>
+        <div class="profile-details">
+            <div class="profile-image">
+                <img src="images/profile.jpg" alt="Profile Picture" class="rounded-circle" id="profileImage">
+            </div>
+            <div class="profile-info">
+                <h4 id="userName">Loading...</h4>
+                <p>Email: <span id="userEmail">Loading...</span></p>
+                <hr>
+                <h5>Saved Instruments</h5>
+                <ul id="instrumentList">
+                    <li>Loading...</li>
+                </ul>
+                <hr>
+                <h5>Settings</h5>
+                <p><a href="settings.html">Change Password</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Replace 'USER_ID' with the actual user ID
+    const userId = '6704b6ae1ed3bddea771e652'; // Update this to your logged-in user ID
+
+    async function fetchUserProfile() {
+        try {
+            const response = await fetch(`/api/user/${userId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            const user = await response.json();
+            document.getElementById('userName').textContent = user.name; // Assumes user object has a name field
+            document.getElementById('userEmail').textContent = user.email;
+
+            const instrumentList = document.getElementById('instrumentList');
+            instrumentList.innerHTML = ''; // Clear the loading message
+            user.savedInstruments.forEach(instrument => {
+                const li = document.createElement('li');
+                li.textContent = instrument.name; // Display the instrument name
+                instrumentList.appendChild(li);
+            });
+        } catch (error) {
+            console.error(error);
+            document.getElementById('userName').textContent = 'Error loading user data';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchUserProfile);
+</script>
+
+</body>
+</html>

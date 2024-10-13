@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - MusicEdu</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.jpg" alt="MusicEdu Logo">
+      </a>
+
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <input type="text" placeholder="Search..." aria-label="Search">
+        <button type="submit">Search</button>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="register.html">Sign Up</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="admin.html">Admin Panel</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Sign-Up Form -->
+  <section class="signup-section">
+    <div class="signup-container">
+      <h2 class="signup-title">Sign Up</h2>
+      <form id="signUpForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter a password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+        </div>
+        <button type="submit" class="signup-btn">Sign Up</button>
+      </form>
+      <p id="responseMessage"></p> <!-- Response message will be displayed here -->
+      <p class="login-prompt">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </section>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

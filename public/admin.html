@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - MusicEdu</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">MusicEdu</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="admin.html">Admin Panel</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Admin Panel -->
+  <section class="admin-section">
+    <div class="admin-container">
+      <h2>Admin Panel</h2>
+      <div class="admin-actions">
+        <!-- Manage Instruments -->
+        <div class="manage-instruments">
+          <h4>Manage Instruments</h4>
+          <a href="add-instrument.html" class="btn">Add New Instrument</a>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Instrument</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Violin</td>
+                <td>
+                  <a href="edit-instrument.html" class="btn">Edit</a>
+                  <a href="#" class="btn">Delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Piano</td>
+                <td>
+                  <a href="edit-instrument.html" class="btn">Edit</a>
+                  <a href="#" class="btn">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Manage Users -->
+        <div class="manage-users">
+          <h4>Manage Users</h4>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>John Doe</td>
+                <td>
+                  <a href="#" class="btn">View</a>
+                  <a href="#" class="btn">Delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Jane Smith</td>
+                <td>
+                  <a href="#" class="btn">View</a>
+                  <a href="#" class="btn">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

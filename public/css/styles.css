@@ -1,0 +1,515 @@
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  position: relative;
+  background-color: #333;
+  color: #fff;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Logo */
+.logo img {
+  display: block; 
+  height: 50px;
+  width: 50px; 
+  border-radius: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center; 
+  text-decoration: none; 
+}
+
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  margin: 0 1rem;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Hamburger menu */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-toggle .hamburger {
+  width: 25px;
+  height: 2px;
+  background: #fff;
+  display: block;
+  position: relative;
+}
+
+.nav-toggle .hamburger::before,
+.nav-toggle .hamburger::after {
+  content: '';
+  width: 25px;
+  height: 2px;
+  background: #fff;
+  display: block;
+  position: absolute;
+  left: 0;
+}
+
+.nav-toggle .hamburger::before {
+  top: -7px;
+}
+
+.nav-toggle .hamburger::after {
+  top: 7px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input[type="text"] {
+  padding: 8px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-bar button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #555;
+}
+
+
+/* Hero Section */
+.hero-section {
+  background-image: url('../images/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+  color: black;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.hero-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+}
+
+.hero-section p {
+  font-size: 1.5rem;
+}
+
+/* Featured Instruments Section */
+.featured-section {
+  padding: 50px 0;
+  background-color: #fff;
+}
+
+.featured-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.instrument-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card h3 {
+  margin-top: 20px;
+  font-size: 1.5rem;
+}
+
+.card p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* Form Styles */
+.signup-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signup-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.signup-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.signup-btn:hover {
+  background-color: #555;
+}
+
+.login-prompt {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.login-prompt a {
+  color: #333;
+  text-decoration: none;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}
+
+/* Profile Section */
+.profile-section {
+  padding: 50px 0;
+}
+
+.profile-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-details {
+  display: flex;
+  gap: 20px;
+}
+
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-info h4 {
+  margin: 0;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
+.profile-info ul {
+  padding: 0;
+  list-style: none;
+}
+
+.profile-info ul li {
+  margin-bottom: 10px;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+  margin: 20px 0;
+}
+
+/* Admin Panel */
+.admin-section {
+  padding: 50px 0;
+}
+
+.admin-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 50px;
+}
+
+.manage-instruments,
+.manage-users {
+  width: 100%;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.admin-table th {
+  background-color: #f4f4f4;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+/* Instrument Detail Section */
+.instrument-detail-section {
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.instrument-detail-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.instrument-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.instrument-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.instrument-image {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+
+.instrument-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.instrument-info {
+  max-width: 600px;
+  text-align: center;
+}
+
+.instrument-info h3 {
+  font-size: 1.5rem;
+  color: #444;
+  margin-top: 1.5rem;
+}
+
+.instrument-info p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+audio {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    width: 100%;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .admin-actions {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .profile-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-image img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .signup-container {
+    width: 90%;
+  }
+
+  .instrument-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .instrument-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .instrument-image img {
+    max-width: 100%;
+  }
+}

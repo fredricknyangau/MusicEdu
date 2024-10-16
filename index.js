@@ -6,7 +6,13 @@ const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const userRoutes = require('./routes/userRoutes');
+
+// Import Models
+const User = require('./models/User');
+const UserInteraction = require('./models/UserInteraction');
+const Feedback = require('./models/Feedback');
+const SecurityLog = require('./models/SecurityLog');
+const Instrument= require('./models/Instrument');
 
 const app = express();
 const PORT = 3000; // Define the port number
@@ -18,104 +24,6 @@ const uri = "mongodb+srv://Admin:xtzPnKO60GccUK2P@backenddb.oinf5.mongodb.net/ba
 app.use(express.json()); // To handle JSON request bodies
 app.use(bodyParser.urlencoded({ extended: true })); // To handle form data (optional)
 app.use(express.static('public')); // Serve static files like HTML, CSS, JS
-
-// Mongoose User Schema and Model
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  }
-});
-
-const User = mongoose.model('User', userSchema);
-
-// User Interaction Schema
-const userInteractionSchema = new mongoose.Schema({
-  userID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  instrumentID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'MusicalInstrument',
-    required: true
-  },
-  interactionType: {
-    type: String,
-    required: true,
-    enum: ['Viewed', 'Listened', 'Commented']
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now
-  }
-});
-
-const UserInteraction = mongoose.model('UserInteraction', userInteractionSchema);
-
-// Feedback Schema
-const feedbackSchema = new mongoose.Schema({
-  userID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  instrumentID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'MusicalInstrument',
-    required: true
-  },
-  rating: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  comment: {
-    type: String,
-    required: true
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now
-  }
-});
-
-const Feedback = mongoose.model('Feedback', feedbackSchema);
-
-// Security Log Schema
-const securityLogSchema = new mongoose.Schema({
-  userID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  action: {
-    type: String,
-    required: true,
-    enum: ['Login', 'Logout', 'Password Change']
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now
-  },
-  ipAddress: {
-    type: String,
-    required: true
-  }
-});
-
-const SecurityLog = mongoose.model('SecurityLog', securityLogSchema);
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(uri)
@@ -159,8 +67,6 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// Routes
-
 // Home Route
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html'); // Serve homepage
@@ -170,14 +76,16 @@ app.get('/', (req, res) => {
 app.post('/register', [
   body('name').notEmpty().withMessage('Name is required'),
   body('email').isEmail().withMessage('Valid email is required'),
-  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+  body('username').notEmpty().withMessage('Username is required'),
+  body('role').notEmpty().withMessage('Role is required'),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, email, password } = req.body;
+  const { name, email, password, username, role } = req.body;
 
   try {
     // Check if the user already exists in the MongoDB database
@@ -191,7 +99,7 @@ app.post('/register', [
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Save the user to MongoDB using Mongoose
-    const newUser = new User({ name, email, password: hashedPassword });
+    const newUser = new User({ name, email, password: hashedPassword, username, role });
     await newUser.save();
 
     res.status(201).json({ message: 'Registration successful!' });
@@ -206,14 +114,12 @@ app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Check if the user exists in the MongoDB database
     const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(400).json({ error: 'Invalid email or password.' });
     }
 
-    // Compare the provided password with the stored hashed password
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(400).json({ error: 'Invalid email or password.' });
@@ -221,15 +127,69 @@ app.post('/login', async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign({ id: user._id }, JWT_SECRET);
-    res.status(200).json({ message: 'Login successful!', token });
 
-    // Log the login action
-    const ipAddress = req.ip; // Capture IP address
-    const log = new SecurityLog({ userID: user._id, action: 'Login', ipAddress });
-    await log.save();
-
+    // Send the token and user ID back
+    res.status(200).json({ message: 'Login successful!', token, userId: user._id });
   } catch (error) {
     console.error('Error during login:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Create a new instrument
+app.post('/instruments', authenticateJWT, async (req, res) => {
+  const { name } = req.body; // Get the instrument name from the request body
+
+  try {
+    const newInstrument = new Instrument({ name }); // Create a new instrument
+    await newInstrument.save();
+    res.status(201).json(newInstrument);
+  } catch (error) {
+    console.error('Error creating instrument:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Get all instruments
+app.get('/instruments', authenticateJWT, async (req, res) => {
+  try {
+    const instruments = await Instrument.find(); // Get all instruments
+    res.status(200).json(instruments);
+  } catch (error) {
+    console.error('Error fetching instruments:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Delete an instrument
+app.delete('/instruments/:id', authenticateJWT, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await Instrument.findByIdAndDelete(id); // Delete instrument by ID
+    res.status(204).send(); // No content
+  } catch (error) {
+    console.error('Error deleting instrument:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+// Route to get user profile
+app.get('/api/user/:id', authenticateJWT, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id); // Find user by ID
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    // You might want to exclude the password field
+    res.status(200).json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      savedInstruments: user.savedInstruments // Assuming this field exists
+    });
+  } catch (error) {
+    console.error('Error fetching user:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

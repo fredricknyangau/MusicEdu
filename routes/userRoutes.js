@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('./models/User'); // Ensure the path is correct for your User model
+const User = require('../models/User'); // Ensure the path is correct for your User model
 
 // GET user details by ID
 router.get('/api/user/:id', async (req, res) => {

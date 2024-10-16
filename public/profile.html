@@ -15,7 +15,7 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="profile.html">Profile</a></li>
-            <li><a href="logout.html">Logout</a></li>
+            <li><a href="logout.html" onclick="logout()">Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -45,33 +45,48 @@
 </section>
 
 <script>
-    // Replace 'USER_ID' with the actual user ID
-    const userId = '6704b6ae1ed3bddea771e652'; // Update this to your logged-in user ID
+    // Get the user ID from local storage
+    const userId = localStorage.getItem('userId');
 
     async function fetchUserProfile() {
+        if (!userId) {
+            document.getElementById('userName').textContent = 'No user is logged in.';
+            return; // Exit the function if no user ID is found
+        }
+
         try {
             const response = await fetch(`/api/user/${userId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch user data');
             }
             const user = await response.json();
-            document.getElementById('userName').textContent = user.name; // Assumes user object has a name field
+            document.getElementById('userName').textContent = user.name; 
             document.getElementById('userEmail').textContent = user.email;
 
             const instrumentList = document.getElementById('instrumentList');
             instrumentList.innerHTML = ''; // Clear the loading message
-            user.savedInstruments.forEach(instrument => {
-                const li = document.createElement('li');
-                li.textContent = instrument.name; // Display the instrument name
-                instrumentList.appendChild(li);
-            });
+            if (user.savedInstruments.length === 0) {
+                instrumentList.innerHTML = '<li>No saved instruments</li>';
+            } else {
+                user.savedInstruments.forEach(instrument => {
+                    const li = document.createElement('li');
+                    li.textContent = instrument.name; 
+                    instrumentList.appendChild(li);
+                });
+            }
         } catch (error) {
-            console.error(error);
+            console.error('Error fetching user profile:', error);
             document.getElementById('userName').textContent = 'Error loading user data';
         }
     }
 
     document.addEventListener('DOMContentLoaded', fetchUserProfile);
+
+    function logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        window.location.href = 'index.html'; // Redirect to home page or login page
+    }
 </script>
 
 </body>

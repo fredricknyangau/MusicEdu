@@ -4,90 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile - MusicEdu</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
-
-<!-- Navbar -->
-<nav class="navbar">
-    <div class="container">
-        <a href="index.html" class="logo">MusicEdu</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="logout.html" onclick="logout()">Logout</a></li>
-        </ul>
-    </div>
-</nav>
-
-<!-- Profile Section -->
-<section class="profile-section">
     <div class="profile-container">
-        <h2>User Profile</h2>
-        <div class="profile-details">
-            <div class="profile-image">
-                <img src="images/profile.jpg" alt="Profile Picture" class="rounded-circle" id="profileImage">
-            </div>
-            <div class="profile-info">
-                <h4 id="userName">Loading...</h4>
-                <p>Email: <span id="userEmail">Loading...</span></p>
-                <hr>
-                <h5>Saved Instruments</h5>
-                <ul id="instrumentList">
-                    <li>Loading...</li>
-                </ul>
-                <hr>
-                <h5>Settings</h5>
-                <p><a href="settings.html">Change Password</a></p>
-            </div>
-        </div>
+        <h2>Your Profile</h2>
+        <form id="profileForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="role">Role:</label>
+            <input type="text" id="role" required>
+
+            <button type="submit">Update Profile</button>
+            <p id="responseMessage"></p>
+        </form>
     </div>
-</section>
 
-<script>
-    // Get the user ID from local storage
-    const userId = localStorage.getItem('userId');
-
-    async function fetchUserProfile() {
-        if (!userId) {
-            document.getElementById('userName').textContent = 'No user is logged in.';
-            return; // Exit the function if no user ID is found
-        }
-
-        try {
-            const response = await fetch(`/api/user/${userId}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch user data');
-            }
-            const user = await response.json();
-            document.getElementById('userName').textContent = user.name; 
-            document.getElementById('userEmail').textContent = user.email;
-
-            const instrumentList = document.getElementById('instrumentList');
-            instrumentList.innerHTML = ''; // Clear the loading message
-            if (user.savedInstruments.length === 0) {
-                instrumentList.innerHTML = '<li>No saved instruments</li>';
-            } else {
-                user.savedInstruments.forEach(instrument => {
-                    const li = document.createElement('li');
-                    li.textContent = instrument.name; 
-                    instrumentList.appendChild(li);
-                });
-            }
-        } catch (error) {
-            console.error('Error fetching user profile:', error);
-            document.getElementById('userName').textContent = 'Error loading user data';
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', fetchUserProfile);
-
-    function logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        window.location.href = 'index.html'; // Redirect to home page or login page
-    }
-</script>
-
+    <script src="js/profile.js"></script>
 </body>
 </html>

@@ -1,88 +1,59 @@
-document.addEventListener("DOMContentLoaded", function () {
-    fetchInstruments();
-  });
-  
-  // Fetch and display instruments
-  async function fetchInstruments() {
+document.addEventListener('DOMContentLoaded', async () => {
+    const feedback = document.getElementById('feedback');
+    const instrumentsContainer = document.getElementById('instruments-container');
+
+    // Check if user is authenticated
+    fetch('http://localhost:3000/api/session-status')
+        .then(response => {
+            if (!response.ok) {
+                window.location.href = 'login.html'; // Redirect if not authenticated
+            }
+        })
+        .catch(error => console.error('Error:', error));
+
+    // Fetch instruments from the API
     try {
-      const response = await fetch('/instruments', { method: 'GET', headers: getAuthHeaders() });
-      const instruments = await response.json();
-  
-      const tbody = document.querySelector('.manage-instruments tbody');
-      tbody.innerHTML = ''; // Clear existing entries
-  
-      instruments.forEach(instrument => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${instrument.name}</td>
-          <td>
-            <a href="edit-instrument.html?id=${instrument._id}" class="btn">Edit</a>
-            <a href="#" class="btn" onclick="deleteInstrument('${instrument._id}')">Delete</a>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
+        const response = await fetch('http://localhost:3000/api/instruments');
+        if (response.ok) {
+            const instruments = await response.json();
+            displayInstruments(instruments);
+        } else {
+            feedback.textContent = 'Failed to load instruments.';
+            feedback.className = 'error-message';
+        }
     } catch (error) {
-      console.error('Error fetching instruments:', error);
+        console.error('Error:', error);
+        feedback.textContent = 'An error occurred while fetching instruments.';
+        feedback.className = 'error-message';
     }
-  }
-  
-  // Delete an instrument
-  async function deleteInstrument(id) {
-    if (confirm('Are you sure you want to delete this instrument?')) {
-      try {
-        await fetch(`/instruments/${id}`, { method: 'DELETE', headers: getAuthHeaders() });
-        fetchInstruments(); // Refresh the instrument list
-      } catch (error) {
-        console.error('Error deleting instrument:', error);
-      }
+
+    function displayInstruments(instruments) {
+        if (instruments.length === 0) {
+            instrumentsContainer.innerHTML = '<p>No instruments found.</p>';
+            return;
+        }
+
+        instruments.forEach(instrument => {
+            const instrumentDiv = document.createElement('div');
+            instrumentDiv.className = 'instrument';
+            instrumentDiv.innerHTML = `
+                <h3>${instrument.name}</h3>
+                <img src="${instrument.image_url}" alt="${instrument.name}" />
+                <p>${instrument.description}</p>
+                <video controls>
+                    <source src="${instrument.video_url}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Origin: ${instrument.origin_country}</p>
+                <p>${instrument.historical_background}</p>
+            `;
+            instrumentsContainer.appendChild(instrumentDiv);
+        });
     }
-  }
-  
-  // Add a new instrument
-  document.getElementById('addInstrumentForm')?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-  
-    const instrumentName = document.getElementById('instrumentName').value;
-  
-    try {
-      await fetch('/instruments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getAuthHeaders(),
-        },
-        body: JSON.stringify({ name: instrumentName }),
-      });
-  
-      alert('Instrument added successfully!');
-      window.location.href = 'admin.html'; // Redirect to admin page
-    } catch (error) {
-      console.error('Error adding instrument:', error);
-    }
-  });
-  
-  // Edit an existing instrument
-  document.getElementById('editInstrumentForm')?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-  
-    const instrumentId = document.getElementById('instrumentId').value;
-    const instrumentName = document.getElementById('instrumentName').value;
-  
-    try {
-      await fetch(`/instruments/${instrumentId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getAuthHeaders(),
-        },
-        body: JSON.stringify({ name: instrumentName }),
-      });
-  
-      alert('Instrument updated successfully!');
-      window.location.href = 'admin.html'; // Redirect to admin page
-    } catch (error) {
-      console.error('Error updating instrument:', error);
-    }
-  });
-  
+
+    // Logout functionality
+    document.getElementById('logout').addEventListener('click', async () => {
+        await fetch('http://localhost:3000/api/logout', { method: 'POST' });
+        window.location.href = 'login.html'; // Redirect to login page
+    });
+});

@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
-const interactionSchema = new mongoose.Schema({
-    userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    instrumentID: { type: mongoose.Schema.Types.ObjectId, ref: 'Instrument', required: true },
-    interactionType: { type: String, enum: ['Viewed', 'Listened', 'Commented'], required: true },
-    timestamp: { type: Date, default: Date.now }
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: { type: String, enum: ['student', 'admin'], required: true },
 });
 
-const UserInteraction = mongoose.model('UserInteraction', interactionSchema);
-module.exports = UserInteraction;
+const User = mongoose.model('User', userSchema);
+module.exports = User;

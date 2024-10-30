@@ -1,64 +1,56 @@
-// Function to get authentication headers
-function getAuthHeaders() {
-    const token = localStorage.getItem('token');
-    return {
-        Authorization: `Bearer ${token}`,
+document.addEventListener('DOMContentLoaded', () => {
+    const feedback = document.getElementById('feedback');
+
+    // Function to check if the user is authenticated (optional)
+    const checkAuthStatus = async () => {
+        try {
+            const response = await fetch('/api/session-status'); // Using relative path
+            if (!response.ok) {
+                window.location.href = 'login.html'; // Redirect if not authenticated
+            }
+        } catch (error) {
+            console.error('Error checking authentication:', error);
+            window.location.href = 'login.html'; // Redirect to login on error
+        }
     };
-}
 
-// Fetch user profile details
-async function fetchUserProfile() {
-    try {
-        const response = await fetch('/auth/profile', {
-            method: 'GET',
-            headers: getAuthHeaders(),
-        });
-        if (!response.ok) {
-            throw new Error(`Failed to fetch user profile: ${response.status} ${response.statusText}`);
+    checkAuthStatus(); // Check authentication when the page loads
+
+    // Handle form submission
+    document.getElementById('instrument-form').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(event.target); // Collect form data including files
+
+        try {
+            const response = await fetch('/api/instruments', { // Using relative path
+                method: 'POST',
+                body: formData // Send FormData directly
+            });
+            if (response.ok) {
+                feedback.textContent = 'Instrument added successfully!';
+                feedback.className = 'success-message';
+                event.target.reset(); // Clear the form
+            } else {
+                feedback.textContent = 'Error adding instrument';
+                feedback.className = 'error-message';
+                const errorText = await response.text(); // Capture error message from server
+                console.error('Server response:', errorText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            feedback.textContent = 'An error occurred. Please try again.';
+            feedback.className = 'error-message';
         }
-        const user = await response.json();
+    });
 
-        // Populate the form fields with user data
-        document.getElementById('name').value = user.name;
-        document.getElementById('username').value = user.username;
-        document.getElementById('email').value = user.email;
-        document.getElementById('role').value = user.role;
-    } catch (error) {
-        console.error('Error fetching user profile:', error);
-        document.getElementById('responseMessage').textContent = 'Error loading profile details.';
-    }
-}
-
-// Function to handle form submission and update profile
-document.getElementById('profileForm').addEventListener('submit', async function (event) {
-    event.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const role = document.getElementById('role').value;
-
-    try {
-        const response = await fetch('/auth/profile', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                ...getAuthHeaders(),
-            },
-            body: JSON.stringify({ name, username, email, role }),
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-            document.getElementById('responseMessage').textContent = 'Profile updated successfully!';
-        } else {
-            document.getElementById('responseMessage').textContent = result.message;
+    // Logout functionality
+    document.getElementById('logout').addEventListener('click', async () => {
+        try {
+            await fetch('/api/logout', { method: 'POST' }); // Using relative path
+            window.location.href = 'login.html'; // Redirect to login page
+        } catch (error) {
+            console.error('Error during logout:', error);
         }
-    } catch (error) {
-        console.error('Error updating profile:', error);
-        document.getElementById('responseMessage').textContent = 'Error updating profile.';
-    }
+    });
 });
-
-// Load the user profile on page load
-document.addEventListener('DOMContentLoaded', fetchUserProfile);

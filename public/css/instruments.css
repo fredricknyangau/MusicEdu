@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#feedback {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: red;
+}
+
+.instrument {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+}
+
+.instrument h3 {
+    margin: 0;
+    color: #007BFF;
+}
+
+.instrument img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.instrument p {
+    margin: 10px 0;
+}
+
+video {
+    width: 100%;
+    border-radius: 5px;
+}

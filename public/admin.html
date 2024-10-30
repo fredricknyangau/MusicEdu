@@ -1,71 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Panel - MusicEdu</title>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - African Musical Instruments</title>
+    <link rel="stylesheet" href="css/admin.css"> <!-- Reusing user CSS styles -->
 </head>
 <body>
-
-  <!-- Navbar -->
-  <nav class="navbar">
     <div class="container">
-      <a href="index.html" class="logo">MusicEdu</a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="admin.html">Admin Panel</a></li>
-        <li><a href="logout.html">Logout</a></li>
-      </ul>
+        <header>
+            <h1>Admin Dashboard</h1>
+            <button id="logout" class="btn">Logout</button>
+        </header>
+
+        <div id="feedback"></div>
+        
+        <section>
+            <h2>Add New Instrument</h2>
+            <form id="instrument-form">
+                <label for="name">Instrument Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="origin_country">Origin Country:</label>
+                <input type="text" id="origin_country" name="origin_country" required>
+
+                <label for="category">Category:</label>
+                <select id="category" name="categories" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="1">String Instruments</option>
+                    <option value="2">Percussion Instruments</option>
+                    <option value="3">Wind Instruments</option>
+                    <!-- Add more categories as needed -->
+                </select>
+
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+
+                <label for="video">Video:</label>
+                <input type="file" id="video" name="video" accept="video/*" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+
+                <label for="historical_background">Historical Background:</label>
+<textarea id="historical_background" name="historical_background" required></textarea>
+
+                <button type="submit">Add Instrument</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Current Instruments</h2>
+            <div id="instruments-container"></div> <!-- Placeholder for displaying instruments -->
+        </section>
     </div>
-  </nav>
 
-  <!-- Admin Panel -->
-  <section class="admin-section">
-    <div class="admin-container">
-      <h2>Admin Panel</h2>
-      <div class="admin-actions">
-        <!-- Manage Instruments -->
-        <div class="manage-instruments">
-          <h4>Manage Instruments</h4>
-          <a href="add-instrument.html" class="btn">Add New Instrument</a>
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Instrument</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Instrument rows will be dynamically populated here -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Manage Users -->
-        <div class="manage-users">
-          <h4>Manage Users</h4>
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- User rows will be dynamically populated here -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script src="js/auth.js"></script>
-<script src="js/instruments.js"></script>
-<script src="js/users.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/main.js"></script>
-
+    <script src="js/admin.js"></script>
 </body>
 </html>

@@ -1,36 +1,69 @@
 document.getElementById('loginForm').addEventListener('submit', async function (event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-    console.log('Attempting to log in with:', { email, password }); // Log the credentials
+  // Basic validation for empty fields
+  if (!email || !password) {
+    document.getElementById('responseMessage').innerText = 'Please enter both email and password.';
+    return;
+  }
 
-    try {
-        const response = await fetch('/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
+  const loginData = { email, password };
 
-        const data = await response.json(); // Parse the JSON response
+  try {
+    const response = await fetch('/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginData),
+    });
 
-        console.log('Response:', response);
-        console.log('Data:', data);
-        console.log('Status:', response.status);
+    const result = await response.json();
+    document.getElementById('responseMessage').innerText = result.message;
 
-        if (response.ok) {
-            localStorage.setItem('token', data.token); // Store token
-            window.location.href = 'profile.html'; // Redirect to profile page
-        } else if (response.status === 401) {
-            document.getElementById('errorMessage').textContent = 'Unauthorized: Invalid credentials provided.';
-        } else {
-            document.getElementById('errorMessage').textContent = data.message || 'An error occurred. Please try again.';
+    if (response.ok) {
+      // Store the token in local storage
+      localStorage.setItem('token', result.token); // Assuming your backend returns the token
+
+      // Fetch the user profile
+      const token = localStorage.getItem('token');
+      const profileResponse = await fetch('/auth/profile', {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${token}`, // Include the token in the request
+          },
+      });
+
+      if (profileResponse.ok) {
+        const profileData = await profileResponse.json();
+        console.log('User Profile:', profileData); // You can use this data to display on the page
+        
+        // Redirect based on user role or update UI with profile information
+        switch (result.role) {
+          case 'student':
+            window.location.href = 'user.html';
+            break;
+          case 'admin':
+            window.location.href = 'admin.html';
+            break;
+          default:
+            window.location.href = 'instruments.html'; // Fallback page
         }
-    } catch (error) {
-        console.error('Error logging in:', error);
-        document.getElementById('errorMessage').textContent = 'Failed to connect to the server.';
+      } else {
+        document.getElementById('responseMessage').innerText = 'Failed to fetch profile.';
+      }
+    } else {
+      // Handle specific errors based on the status code
+      if (response.status === 400) {
+        document.getElementById('responseMessage').innerText = 'Invalid email or password.';
+      } else {
+        document.getElementById('responseMessage').innerText = 'An unexpected error occurred. Please try again.';
+      }
     }
+  } catch (error) {
+    document.getElementById('responseMessage').innerText = 'Error occurred during login. Please check your network connection.';
+  }
 });

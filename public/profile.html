@@ -7,26 +7,32 @@
     <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
-    <div class="profile-container">
-        <h2>Your Profile</h2>
-        <form id="profileForm">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" required>
-
-            <label for="username">Username:</label>
-            <input type="text" id="username" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-
-            <label for="role">Role:</label>
-            <input type="text" id="role" required>
-
-            <button type="submit">Update Profile</button>
-            <p id="responseMessage"></p>
-        </form>
-    </div>
-
+    <section class="profile-section">
+        <div class="profile-container">
+            <h2 class="profile-title">Your Profile</h2>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <input type="text" id="role" disabled>
+                </div>
+                <button type="submit" class="update-btn">Update Profile</button>
+            </form>
+            <p id="responseMessage"></p> <!-- Response message will be displayed here -->
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </section>
     <script src="js/profile.js"></script>
 </body>
 </html>

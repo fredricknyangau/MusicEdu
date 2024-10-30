@@ -1,33 +1,44 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const signUpForm = document.getElementById('signUpForm');
-    
-    signUpForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Prevent default form submission
-
-        const name = document.getElementById('name').value;
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const role = document.getElementById('role').value;
-
-        try {
-            const response = await fetch('http://localhost:3000/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, username, email, password, role }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            console.log('Registration successful:', data);
-            // Redirect to login page after successful registration
-            window.location.href = 'login.html';
-        } catch (error) {
-            console.error('Error registering:', error);
-            document.getElementById('responseMessage').textContent = 'Error registering. Please try again.';
-        }
-    });
-});
+document.getElementById('signUpForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
+  
+    const name = document.getElementById('name').value;
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const role = document.getElementById('role').value;
+  
+    if (password !== confirmPassword) {
+      document.getElementById('responseMessage').innerText = 'Passwords do not match!';
+      return;
+    }
+  
+    const userData = {
+      name,
+      username,
+      email,
+      password,
+      role,
+    };
+  
+    try {
+      const response = await fetch('/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      const result = await response.json();
+      document.getElementById('responseMessage').innerText = result.message;
+  
+      if (response.ok) {
+        // Redirect to login page
+        window.location.href = 'login.html';
+      }
+    } catch (error) {
+      document.getElementById('responseMessage').innerText = 'Error occurred during registration.';
+    }
+  });
+  

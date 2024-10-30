@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - MusicEdu</title>
-    <link rel="stylesheet" href="css/login.css"> <!-- Link to external CSS -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In - MusicEdu</title>
+  <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-
-<!-- Login Form -->
-<div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" required>
-        <button type="submit">Login</button>
-    </form>
-    <p id="errorMessage"></p> <!-- Error message -->
-</div>
-
-<!-- Link to the JavaScript file -->
-<script src="js/login.js"></script>
+  <!-- Log-In Form -->
+  <section class="login-section">
+    <div class="login-container">
+      <h2 class="login-title">Log In</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="login-btn">Log In</button>
+      </form>
+      <p id="responseMessage"></p>
+      <p class="signup-prompt">Don't have an account? <a href="register.html">Sign up</a></p>
+    </div>
+  </section>
+  <script src="js/login.js"></script>
 </body>
 </html>

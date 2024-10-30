@@ -1,45 +1,65 @@
 const express = require('express');
-const Instrument = require('../models/Instrument');
-const authenticateJWT = require('../middleware/authenticateJWT');
-
 const router = express.Router();
+const Instrument = require('../models/instruments'); 
+const multer = require('multer');
+const path = require('path');
 
-// Create a new instrument
-router.post('/', authenticateJWT, async (req, res) => {
-  const { name } = req.body;
-
-  try {
-    const newInstrument = new Instrument({ name });
-    await newInstrument.save();
-    res.status(201).json(newInstrument);
-  } catch (error) {
-    console.error('Error creating instrument:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+// Set up multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/uploads/'); // Directory for storing uploaded files
+    },
+    filename: (req, file, cb) => {
+        // Prevent file name conflicts by adding a timestamp
+        cb(null, Date.now() + '-' + file.originalname); 
+    }
 });
 
-// Get all instruments
-router.get('/', authenticateJWT, async (req, res) => {
-  try {
-    const instruments = await Instrument.find();
-    res.status(200).json(instruments);
-  } catch (error) {
-    console.error('Error fetching instruments:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+// Configure multer
+const upload = multer({ 
+    storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024 // Limit files to 5 MB
+    },
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png|mp4|mov|avi/; // Allowed file types
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb('Error: File type not supported!');
+    }
 });
 
-// Delete an instrument
-router.delete('/:id', authenticateJWT, async (req, res) => {
-  const { id } = req.params;
+// POST route to add an instrument
+router.post('/', upload.fields([{ name: 'image' }, { name: 'video' }]), async (req, res) => {
+    try {
+        const instrumentData = {
+            name: req.body.name,
+            origin_country: req.body.origin_country,
+            description: req.body.description,
+            historical_background: req.body.historical_background,
+            categories: req.body.categories // Assume these are category IDs
+        };
 
-  try {
-    await Instrument.findByIdAndDelete(id);
-    res.status(204).send();
-  } catch (error) {
-    console.error('Error deleting instrument:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+        // Check if files are provided
+        if (req.files['image']) {
+            instrumentData.image_url = req.files['image'][0].path; // Path to the uploaded image
+        }
+        if (req.files['video']) {
+            instrumentData.video_url = req.files['video'][0].path; // Path to the uploaded video
+        }
+
+        const newInstrument = new Instrument(instrumentData);
+        await newInstrument.save();
+        res.status(201).send('Instrument added successfully');
+    } catch (error) {
+        console.error('Error adding instrument:', error);
+        res.status(500).send('Error adding instrument');
+    }
 });
 
+// Export the router
 module.exports = router;

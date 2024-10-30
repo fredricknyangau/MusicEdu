@@ -7,55 +7,44 @@
   <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
-<!-- Sign-Up Form -->
   <section class="signup-section">
     <div class="signup-container">
       <h2 class="signup-title">Sign Up</h2>
-      <form id="signUpForm" aria-labelledby="signup-title">
+      <form id="signUpForm">
         <div class="form-group">
           <label for="name">Full Name</label>
-          <input type="text" id="name" placeholder="Enter your full name" required aria-describedby="nameHelp">
-          <small id="nameHelp" class="form-text">Please enter your legal full name.</small>
+          <input type="text" id="name" placeholder="Enter your full name" required>
         </div>
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" placeholder="Choose a username" required pattern=".{5,}" title="Username must be at least 5 characters long" aria-describedby="usernameHelp">
-          <small id="usernameHelp" class="form-text">Username must be at least 5 characters.</small>
+          <input type="text" id="username" placeholder="Choose a username" required>
         </div>
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="Enter your email" required aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
+          <input type="email" id="email" placeholder="Enter your email" required>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Enter a password" required minlength="8" aria-describedby="passwordHelp">
-          <small id="passwordHelp" class="form-text">Password must be at least 8 characters long.</small>
+          <input type="password" id="password" placeholder="Enter a password" required>
         </div>
         <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" placeholder="Confirm your password" required aria-describedby="confirmPasswordHelp">
-          <small id="confirmPasswordHelp" class="form-text">Please confirm your password.</small>
+          <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
         </div>
         <div class="form-group">
           <label for="role">Role</label>
-          <select id="role" required aria-describedby="roleHelp">
+          <select id="role" required>
             <option value="">Select your role</option>
             <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
             <option value="admin">Admin</option>
           </select>
-          <small id="roleHelp" class="form-text">Choose your role in MusicEdu.</small>
         </div>
         <button type="submit" class="signup-btn">Sign Up</button>
       </form>
-      <p id="responseMessage"></p> <!-- Response message will be displayed here -->
+      <p id="responseMessage"></p>
       <p class="login-prompt">Already have an account? <a href="login.html">Log in</a></p>
     </div>
   </section>
-
-  <!-- Link to the JavaScript file -->
   <script src="js/signup.js"></script>
-
 </body>
 </html>

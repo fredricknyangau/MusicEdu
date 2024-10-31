@@ -4,21 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Instrument</title>
-    <link rel="stylesheet" href="css/instruments.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>Add New Instrument</h1>
-        <form id="instrument-form">
-            <input type="text" name="name" placeholder="Instrument Name" required>
-            <input type="text" name="origin_country" placeholder="Country of Origin" required>
-            <textarea name="description" placeholder="Description" required></textarea>
-            <input type="url" name="image_url" placeholder="Image URL" required>
-            <input type="url" name="video_url" placeholder="Video URL" required>
-            <textarea name="historical_background" placeholder="Historical Background" required></textarea>
-            <button type="submit" class="btn">Add Instrument</button>
+        <nav>
+            <a href="instruments.html">View Instruments</a>
+        </nav>
+    </header>
+    <main>
+        <form id="add-instrument-form">
+            <input type="text" id="name" placeholder="Instrument Name" required>
+            <input type="text" id="group" placeholder="Instrument Group" required>
+            <input type="text" id="region" placeholder="Region" required>
+            <input type="url" id="image_url" placeholder="Image URL" required>
+            <input type="url" id="video_url" placeholder="Video URL" required>
+            <textarea id="history" placeholder="Historical Background" required></textarea>
+            <button type="submit">Add Instrument</button>
         </form>
-    </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Music Education System</p>
+    </footer>
     <script src="js/add-instrument.js"></script>
 </body>
 </html>

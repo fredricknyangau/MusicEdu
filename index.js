@@ -10,6 +10,7 @@ const connectDB = require('./config/db');
 const crypto = require('crypto');
 const instrumentRoutes = require('./routes/instrumentRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const sessionStatusRoute = require('./routes/sessionStatus');
 
 
 const app = express();
@@ -52,6 +53,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Path to serve static files
 app.use(express.urlencoded({ extended: true })); // To support URL-encoded bodies
+app.use('/api', sessionStatusRoute);
 
 // Session middleware
 const session = require('express-session');

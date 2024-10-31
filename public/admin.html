@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - African Musical Instruments</title>
-    <link rel="stylesheet" href="css/admin.css"> <!-- Reusing user CSS styles -->
+    <link rel="stylesheet" href="css/admin.css"> <!-- Link to the CSS stylesheet -->
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Admin Dashboard</h1>
-            <button id="logout" class="btn">Logout</button>
+            <button id="logout" class="btn">Logout</button> <!-- Logout button -->
         </header>
 
-        <div id="feedback"></div>
-        
+        <div id="feedback" style="display: none;"></div> <!-- Feedback message display area -->
+
         <section>
-            <h2>Add New Instrument</h2>
-            <form id="instrument-form">
+            <h2>Add / Edit Instrument</h2>
+            <form id="instrument-form"> <!-- Form for adding/editing instruments -->
                 <label for="name">Instrument Name:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -42,19 +42,16 @@
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" required></textarea>
 
-                <label for="historical_background">Historical Background:</label>
-<textarea id="historical_background" name="historical_background" required></textarea>
-
-                <button type="submit">Add Instrument</button>
+                <button type="submit">Add Instrument</button> <!-- Button to submit the form -->
             </form>
         </section>
 
         <section>
             <h2>Current Instruments</h2>
-            <div id="instruments-container"></div> <!-- Placeholder for displaying instruments -->
+            <div id="instruments-container"></div> <!-- Placeholder for displaying current instruments -->
         </section>
     </div>
 
-    <script src="js/admin.js"></script>
+    <script src="js/admin.js"></script> <!-- Link to the JavaScript file -->
 </body>
 </html>

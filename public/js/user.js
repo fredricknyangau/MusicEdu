@@ -1,93 +1,92 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const feedback = document.getElementById('feedback');
+document.addEventListener('DOMContentLoaded', async () => {
     const instrumentsContainer = document.getElementById('instruments-container');
-    const profileInfo = document.getElementById('profile-info');
 
-    // Function to check if the user is authenticated
-    const checkAuthStatus = async () => {
-        try {
-            const response = await fetch('/api/session-status');
-            if (!response.ok) {
-                window.location.href = 'login.html'; // Redirect if not authenticated
-            }
-        } catch (error) {
-            console.error('Error checking authentication:', error);
-            window.location.href = 'login.html'; // Redirect to login on error
-        }
-    };
+    // Fetch instruments data
+    try {
+        const response = await fetch('/api/instruments');
+        const instruments = await response.json();
 
-    checkAuthStatus(); // Check authentication when the page loads
-
-    // Fetch and display instruments
-    const fetchInstruments = async () => {
-        try {
-            const response = await fetch('/api/instruments');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const instruments = await response.json();
-            displayInstruments(instruments);
-        } catch (error) {
-            console.error('Error fetching instruments:', error);
-            feedback.textContent = 'Failed to load instruments.';
-            feedback.className = 'error-message';
-        }
-    };
-
-    const displayInstruments = (instruments) => {
-        instrumentsContainer.innerHTML = '';
         instruments.forEach(instrument => {
-            const instrumentDiv = document.createElement('div');
-            instrumentDiv.className = 'instrument';
-            instrumentDiv.innerHTML = `
-                <h3>${instrument.name}</h3>
-                <p><strong>Origin:</strong> ${instrument.origin_country}</p>
-                <p><strong>Category:</strong> ${instrument.categories.join(', ')}</p>
-                <p><strong>Description:</strong> ${instrument.description}</p>
-                <img src="${instrument.image_url}" alt="${instrument.name}" />
-                <video controls>
-                    <source src="${instrument.video_url}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+            const card = document.createElement('div');
+            card.classList.add('instrument-card');
+
+            card.innerHTML = `
+                <img src="${instrument.image_url}" alt="${instrument.name}">
+                <h2>${instrument.name}</h2>
+                <button onclick="viewDetails('${instrument._id}')">View Details</button>
             `;
-            instrumentsContainer.appendChild(instrumentDiv);
+
+            instrumentsContainer.appendChild(card);
         });
-    };
+    } catch (error) {
+        console.error('Error fetching instruments:', error);
+    }
+});
 
-    // Fetch and display user profile information
-    const fetchUserProfile = async () => {
-        try {
-            const response = await fetch('/api/user-profile'); // Adjust this endpoint to get user data
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const userProfile = await response.json();
-            displayUserProfile(userProfile);
-        } catch (error) {
-            console.error('Error fetching user profile:', error);
-            feedback.textContent = 'Failed to load profile information.';
-            feedback.className = 'error-message';
+// Function to view instrument details in a modal
+function viewDetails(id) {
+    const modal = document.getElementById('feedback-modal');
+    const instrumentNameModal = document.getElementById('instrumentNameModal');
+    const instrumentImageModal = document.getElementById('instrumentImageModal');
+    const instrumentVideoModal = document.getElementById('instrumentVideoModal');
+    const instrumentDescriptionModal = document.getElementById('instrumentDescriptionModal');
+    const feedbackListModal = document.getElementById('feedbackListModal');
+
+    fetch(`/api/instruments/${id}`)
+        .then(response => response.json())
+        .then(instrument => {
+            instrumentNameModal.textContent = instrument.name;
+            instrumentImageModal.src = instrument.image_url;
+            instrumentVideoModal.src = instrument.video_url;
+            instrumentDescriptionModal.textContent = instrument.description;
+
+            // Clear existing feedback
+            feedbackListModal.innerHTML = '';
+
+            // Fetch feedback for the instrument
+            fetch(`/api/instruments/${id}/feedback`)
+                .then(feedbackResponse => feedbackResponse.json())
+                .then(feedbackList => {
+                    feedbackList.forEach(feedback => {
+                        const feedbackItem = document.createElement('p');
+                        feedbackItem.textContent = feedback;
+                        feedbackListModal.appendChild(feedbackItem);
+                    });
+                });
+
+            // Show the modal
+            modal.style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching instrument details:', error));
+}
+
+// Close modal
+document.getElementById('closeModal').onclick = function() {
+    document.getElementById('feedback-modal').style.display = 'none';
+};
+
+// Handle feedback form submission
+document.getElementById('feedbackForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const feedback = event.target.feedback.value;
+
+    try {
+        const response = await fetch(`/api/instruments/${instrumentId}/feedback`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ feedback }),
+        });
+
+        if (response.ok) {
+            alert('Feedback submitted!');
+            event.target.reset();
+            document.getElementById('feedback-modal').style.display = 'none'; // Close modal after feedback submission
+        } else {
+            alert('Failed to submit feedback');
         }
-    };
-
-    const displayUserProfile = (profile) => {
-        profileInfo.innerHTML = `
-            <p><strong>Name:</strong> ${profile.name}</p>
-            <p><strong>Email:</strong> ${profile.email}</p>
-            <p><strong>Joined:</strong> ${new Date(profile.createdAt).toLocaleDateString()}</p>
-        `;
-    };
-
-    // Logout functionality
-    document.getElementById('logout').addEventListener('click', async () => {
-        try {
-            await fetch('/api/logout', { method: 'POST' });
-            window.location.href = 'login.html'; // Redirect to login page
-        } catch (error) {
-            console.error('Error during logout:', error);
-        }
-    });
-
-    fetchInstruments(); // Fetch and display instruments
-    fetchUserProfile(); // Fetch and display user profile
+    } catch (error) {
+        console.error('Error submitting feedback:', error);
+    }
 });

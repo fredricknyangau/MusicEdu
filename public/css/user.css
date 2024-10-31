@@ -1,73 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+    padding: 20px;
 }
 
 header {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
     text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
 }
 
 h1 {
-    margin: 0;
+    margin-bottom: 10px;
 }
 
-.btn {
-    background: #e8491d;
-    color: white;
+.instruments-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.instrument-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+}
+
+.instrument-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.instrument-card h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.instrument-card button {
+    background-color: #333;
+    color: #fff;
+    padding: 8px 16px;
     border: none;
-    padding: 10px 15px;
+    border-radius: 4px;
     cursor: pointer;
-    margin-left: 20px;
 }
 
-.btn:hover {
-    background: #333;
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-#feedback {
-    margin: 20px 0;
-    padding: 10px;
-    border-radius: 5px;
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
 }
 
-.success-message {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.error-message {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.instrument {
-    background: white;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.instrument img, .instrument video {
-    max-width: 100%;
-    height: auto;
-}
-
-#profile-info {
-    background: white;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

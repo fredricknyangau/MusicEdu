@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - African Musical Instruments</title>
-    <link rel="stylesheet" href="css/user.css"> <!-- Link to user CSS styles -->
+    <link rel="stylesheet" href="css/user.css"> <!-- User-specific styles -->
 </head>
 <body>
     <div class="container">
@@ -13,17 +13,28 @@
             <button id="logout" class="btn">Logout</button>
         </header>
 
-        <div id="feedback"></div>
-
         <section>
             <h2>Available Instruments</h2>
-            <div id="instruments-container"></div> <!-- Placeholder for displaying instruments -->
+            <div id="instruments-container">
+                <!-- Placeholder for displaying instruments -->
+            </div>
         </section>
 
-        <section>
-            <h2>Your Profile</h2>
-            <div id="profile-info"></div> <!-- Placeholder for displaying user profile info -->
-        </section>
+        <div id="feedback-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2 id="instrumentNameModal"></h2>
+                <img id="instrumentImageModal" src="" alt="Instrument Image" class="modal-image">
+                <video id="instrumentVideoModal" controls></video>
+                <p id="instrumentDescriptionModal"></p>
+                <h3>Submit Feedback</h3>
+                <form id="feedbackForm">
+                    <textarea name="feedback" rows="4" placeholder="Enter your feedback here"></textarea>
+                    <button type="submit">Submit Feedback</button>
+                </form>
+                <div id="feedbackListModal"></div>
+            </div>
+        </div>
     </div>
 
     <script src="js/user.js"></script>

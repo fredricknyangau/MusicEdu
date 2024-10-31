@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     res.json(categories);
 });
 
-// Add a new category
+// Add a new category(ADMIN ONLY)
 router.post('/', async (req, res) => {
     const category = new Category(req.body);
     await category.save();

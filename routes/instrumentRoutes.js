@@ -3,6 +3,13 @@ const router = express.Router();
 const Instrument = require('../models/instruments'); 
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+
+// Ensure the upload directory exists
+const uploadDir = path.join(__dirname, '../public/uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
@@ -15,12 +22,9 @@ const storage = multer.diskStorage({
     }
 });
 
-// Configure multer
 const upload = multer({ 
     storage,
-    limits: {
-        fileSize: 5 * 1024 * 1024 // Limit files to 5 MB
-    },
+    limits: { fileSize: 5 * 1024 * 1024 }, // Limit files to 5 MB
     fileFilter: (req, file, cb) => {
         const filetypes = /jpeg|jpg|png|mp4|mov|avi/; // Allowed file types
         const mimetype = filetypes.test(file.mimetype);
@@ -61,5 +65,4 @@ router.post('/', upload.fields([{ name: 'image' }, { name: 'video' }]), async (r
     }
 });
 
-// Export the router
 module.exports = router;

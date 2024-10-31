@@ -42,7 +42,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         console.log('User Profile:', profileData); // You can use this data to display on the page
         
         // Redirect based on user role or update UI with profile information
-        switch (result.role) {
+        const userRole = profileData.role; // Assuming this is how you get the role from the profile
+        switch (userRole) {
           case 'student':
             window.location.href = 'user.html';
             break;
@@ -50,7 +51,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
             window.location.href = 'admin.html';
             break;
           default:
-            window.location.href = 'instruments.html'; // Fallback page
+            window.location.href = 'index.html'; // Fallback page
         }
       } else {
         document.getElementById('responseMessage').innerText = 'Failed to fetch profile.';

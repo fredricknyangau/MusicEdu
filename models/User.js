@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true, // Store emails in lowercase for consistency
         match: /.+\@.+\..+/ // Basic regex for email validation
     },
-    password: { type: String, required: true, minlength: 8 }, // Password must be at least 8 characters
+    password: { type: String, required: true, minlength: 4 }, // Password must be at least 4 characters
     role: {
         type: String,
         enum: ['student', 'admin'],

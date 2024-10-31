@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - African Musical Instruments</title>
+    <link rel="stylesheet" href="css/user.css"> <!-- User-specific styles -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Instrument Categories</h1>
+            <button id="logout" class="btn">Logout</button>
+        </header>
+
+        <section>
+            <h2>Available Categories</h2>
+            <div id="categories-container">
+                <!-- Placeholder for displaying categories -->
+            </div>
+        </section>
+
+        <section>
+            <h2>Instruments in Selected Category</h2>
+            <div id="instruments-container">
+                <!-- Placeholder for displaying instruments based on selected category -->
+            </div>
+        </section>
+
+        <div id="feedback-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2 id="instrumentNameModal"></h2>
+                <img id="instrumentImageModal" src="" alt="Instrument Image" class="modal-image">
+                <video id="instrumentVideoModal" controls></video>
+                <p id="instrumentDescriptionModal"></p>
+                <h3>Submit Feedback</h3>
+                <form id="feedbackForm">
+                    <textarea name="feedback" rows="4" placeholder="Enter your feedback here"></textarea>
+                    <button type="submit">Submit Feedback</button>
+                </form>
+                <div id="feedbackListModal"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/category.js"></script>
+</body>
+</html>

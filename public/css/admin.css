@@ -1,174 +1,179 @@
-/* Container and General Styles */
+/* Reset some basic styles */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    line-height: 1.6;
 }
 
+/* Container for the entire dashboard */
 .container {
-    width: 100%;
+    width: 90%;
     max-width: 1200px;
-    background: #fff;
+    margin: auto;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Header */
+/* Header styles */
 header {
+    background: #4CAF50; /* Green background */
+    color: white;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
 }
 
 header h1 {
-    font-size: 24px;
-    color: #333;
+    font-size: 1.8rem;
 }
 
-header .btn {
-    background-color: #e63946;
-    color: #fff;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-header .btn:hover {
-    background-color: #d62828;
-}
-
-/* Feedback Message */
+/* Feedback message styles */
 #feedback {
+    margin: 10px 0;
     padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
 .success-message {
-    background-color: #38a169;
-    color: #fff;
+    background: #dff0d8;
+    color: #3c763d;
 }
 
 .error-message {
-    background-color: #e53e3e;
-    color: #fff;
+    background: #f2dede;
+    color: #a94442;
 }
 
-/* Form Section */
+/* Section styles */
 section {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    font-size: 20px;
-    color: #555;
-    margin-bottom: 15px;
-}
-
+/* Form styles */
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
-form label {
+label {
+    margin-bottom: 5px;
     font-weight: bold;
-    color: #444;
 }
 
-form input, form select, form textarea {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 100%;
+input[type="text"],
+input[type="file"],
+textarea,
+select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
-form input[type="file"] {
-    padding: 0;
-}
-
-form button {
-    background-color: #0077b6;
-    color: #fff;
-    padding: 10px 16px;
+/* Button styles */
+.btn,
+button {
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
 }
 
-form button:hover {
-    background-color: #023e8a;
+.btn:hover,
+button:hover {
+    background: #45a049; /* Darker green on hover */
 }
 
-/* Instruments Display */
-#instruments-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
-
+/* Instrument card styles */
 .instrument {
-    background: #fafafa;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     padding: 15px;
-    text-align: center;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .instrument img {
     max-width: 100%;
     height: auto;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-.instrument h3 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.instrument p {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 8px;
+    border-radius: 5px;
+    margin: 10px 0;
 }
 
 .instrument video {
-    width: 100%;
-    border-radius: 4px;
+    max-width: 100%;
+    border-radius: 5px;
 }
 
-.instrument .edit-btn {
-    background-color: #f9a825;
-    color: #fff;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+        font-size: 0.9rem;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .instrument {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
-.instrument .edit-btn:hover {
-    background-color: #f57f17;
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+    .btn,
+    button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .instrument h3 {
+        font-size: 1.2rem;
+    }
 }

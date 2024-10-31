@@ -17,21 +17,22 @@
 
         <section>
             <h2>Add / Edit Instrument</h2>
-            <form id="instrument-form"> <!-- Form for adding/editing instruments -->
+            <form id="instrument-form" enctype="multipart/form-data"> <!-- Form for adding/editing instruments -->
+                <input type="hidden" id="instrumentId" name="instrumentId"> <!-- Hidden field for instrument ID -->
                 <label for="name">Instrument Name:</label>
                 <input type="text" id="name" name="name" required>
 
                 <label for="origin_country">Origin Country:</label>
                 <input type="text" id="origin_country" name="origin_country" required>
 
-                <label for="category">Category:</label>
-                <select id="category" name="categories" required>
-                    <option value="" disabled selected>Select a category</option>
+                <label for="categories">Categories:</label>
+                <select id="categories" name="categories" multiple required>
                     <option value="1">String Instruments</option>
                     <option value="2">Percussion Instruments</option>
                     <option value="3">Wind Instruments</option>
                     <!-- Add more categories as needed -->
                 </select>
+                <small>Select multiple categories by holding down the Ctrl (Windows) or Command (Mac) key.</small>
 
                 <label for="image">Image:</label>
                 <input type="file" id="image" name="image" accept="image/*" required>
@@ -41,6 +42,9 @@
 
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" required></textarea>
+
+                <label for="historical_background">Historical Background:</label>
+                <textarea id="historical_background" name="historical_background" required></textarea>
 
                 <button type="submit">Add Instrument</button> <!-- Button to submit the form -->
             </form>

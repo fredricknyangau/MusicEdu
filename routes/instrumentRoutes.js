@@ -1,43 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const Instrument = require('../models/instruments'); 
+const Instrument = require('../models/Instrument');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 
-// Ensure the upload directory exists
-const uploadDir = path.join(__dirname, '../public/uploads');
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Set up multer for file uploads
+// Configure multer for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/uploads/'); // Directory for storing uploaded files
+        cb(null, path.join(__dirname, '../public/uploads'));
     },
     filename: (req, file, cb) => {
-        // Prevent file name conflicts by adding a timestamp
-        cb(null, Date.now() + '-' + file.originalname); 
+        cb(null, `${Date.now()}-${file.originalname}`);
     }
 });
 
-const upload = multer({ 
-    storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // Limit files to 5 MB
-    fileFilter: (req, file, cb) => {
-        const filetypes = /jpeg|jpg|png|mp4|mov|avi/; // Allowed file types
-        const mimetype = filetypes.test(file.mimetype);
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        
-        if (mimetype && extname) {
-            return cb(null, true);
-        }
-        cb('Error: File type not supported!');
+const upload = multer({ storage });
+
+// Get all instruments
+router.get('/', async (req, res) => {
+    try {
+        const instruments = await Instrument.find();
+        res.json(instruments);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching instruments' });
     }
 });
 
-// POST route to add an instrument
+// Add a new instrument (ADMIN ONLY)
 router.post('/', upload.fields([{ name: 'image' }, { name: 'video' }]), async (req, res) => {
     try {
         const instrumentData = {
@@ -45,23 +34,23 @@ router.post('/', upload.fields([{ name: 'image' }, { name: 'video' }]), async (r
             origin_country: req.body.origin_country,
             description: req.body.description,
             historical_background: req.body.historical_background,
-            categories: req.body.categories // Assume these are category IDs
+            categories: req.body.categories, // Array of category IDs
         };
 
-        // Check if files are provided
+        // Update URL paths
         if (req.files['image']) {
-            instrumentData.image_url = req.files['image'][0].path; // Path to the uploaded image
+            instrumentData.image_url = `/uploads/${req.files['image'][0].filename}`; // Ensure correct path
         }
         if (req.files['video']) {
-            instrumentData.video_url = req.files['video'][0].path; // Path to the uploaded video
+            instrumentData.video_url = `/uploads/${req.files['video'][0].filename}`; // Ensure correct path
         }
 
         const newInstrument = new Instrument(instrumentData);
         await newInstrument.save();
-        res.status(201).send('Instrument added successfully');
+        res.status(201).json(newInstrument);
     } catch (error) {
         console.error('Error adding instrument:', error);
-        res.status(500).send('Error adding instrument');
+        res.status(500).json({ message: 'Error adding instrument' });
     }
 });
 

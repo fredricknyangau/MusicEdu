@@ -65,6 +65,7 @@ app.use(session({
 }));
 
 // API Routes
+app.use('/api', sessionStatusRoute);
 app.use('/auth', authRoutes); // Use the authentication routes
 app.use('/api/instruments', instrumentRoutes);
 app.use('/api/categories', categoryRoutes);

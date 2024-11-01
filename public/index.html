@@ -11,17 +11,17 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar">
+  <nav class="navbar" aria-label="Primary navigation">
     <div class="container">
       <a href="index.html" class="logo">
-        <img src="images/logo.jpg" alt="MusicEdu Logo">
+        <img src="images/logo.jpg" alt="MusicEdu Logo" loading="lazy" width="80" height="80">
       </a>
 
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
         <span class="hamburger"></span>
       </button>
 
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="register.html">Sign Up</a></li>
         <li><a href="login.html">Login</a></li>
       </ul>
@@ -44,24 +44,24 @@
       <div class="container">
         <h2>Explore Instruments</h2>
         <div class="instrument-cards">
-          <div class="card">
-            <img src="images/violin.jpg" alt="Violin" loading="lazy">
+          <article class="card">
+            <img src="images/violin.jpg" alt="Violin" loading="lazy" width="300" height="200">
             <h3>Violin</h3>
             <p>Learn about the history and sound of the violin.</p>
             <a href="login.html" class="btn">Learn More</a>
-          </div>
-          <div class="card">
-            <img src="images/piano.jpg" alt="Piano" loading="lazy">
+          </article>
+          <article class="card">
+            <img src="images/piano.jpg" alt="Piano" loading="lazy" width="300" height="200">
             <h3>Piano</h3>
             <p>Discover the elegance and music of the piano.</p>
             <a href="login.html" class="btn">Learn More</a>
-          </div>
-          <div class="card">
-            <img src="images/flute.jpg" alt="Flute" loading="lazy">
+          </article>
+          <article class="card">
+            <img src="images/flute.jpg" alt="Flute" loading="lazy" width="300" height="200">
             <h3>Flute</h3>
             <p>Explore the gentle sound of the flute.</p>
             <a href="login.html" class="btn">Learn More</a>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -72,12 +72,7 @@
     <p>&copy; 2024 MusicEdu. All rights reserved.</p>
   </footer>
 
-<script src="js/auth.js"></script>
-<script src="js/instruments.js"></script>
-<script src="js/users.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/main.js"></script>
-
+  <script src="js/index.js"></script>
 
 </body>
 </html>

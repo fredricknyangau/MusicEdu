@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Instrument = require('../models/Instrument');
+const Instrument = require('../models/instruments');
 const multer = require('multer');
 const path = require('path');
 

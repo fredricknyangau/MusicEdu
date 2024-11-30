@@ -1,0 +1,378 @@
+/* General Styles */
+body {
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+/*icons*/
+.icon {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+
+/* Dashboard Container */
+.dashboard {
+    width: 90%;
+    max-width: 1200px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 40px;
+}
+
+/* Greeting */
+.greeting {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Navigation */
+.dashboard-nav {
+    margin-bottom: 30px;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding-left: 0;
+}
+
+.nav-item .nav-link {
+    text-decoration: none;
+    font-weight: 600;
+    color: #007BFF;
+    transition: color 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+    color: #0056b3;
+}
+
+/* Instrument Section */
+.instrument-section {
+    margin-top: 30px;
+}
+
+.instrument-section h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Search Bar */
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: #007BFF;
+}
+
+/* Categories List */
+.categories-list {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.categories-list button {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border: none;
+    background-color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.categories-list button:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.categories-list button.active {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* Instruments List */
+.instruments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.instrument-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.instrument-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.instrument-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.instrument-card h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.instrument-card video {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  
+  .instrument-card p {
+    color: #666;
+    font-size: 1rem;
+  }
+
+/* Instrument Detail */
+.instrument-detail {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.instrument-detail button.back-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.instrument-detail button.back-button:hover {
+    background-color: #0056b3;
+}
+
+.instrument-detail .instrument-title {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.instrument-detail img,
+.instrument-detail audio,
+.instrument-detail video {
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.instrument-detail .instrument-section {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.instrument-detail .instrument-section h4 {
+    font-size: 1.4rem;
+    color: #444;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.instrument-detail .instrument-section p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Feedback Section */
+.feedback-section {
+    margin-top: 40px;
+    text-align: left;
+}
+
+.feedback-section h4 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.feedback-section textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.feedback-section textarea:focus {
+    border-color: #007BFF;
+}
+
+.feedback-section button.submit-feedback-btn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.feedback-section button.submit-feedback-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.feedback-section button.submit-feedback-btn:hover {
+    background-color: #218838;
+}
+
+/* Admin Response */
+.admin-response {
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-response h4 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.admin-response p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Loading and Error States */
+.loading {
+    text-align: center;
+    color: #999;
+    font-size: 1.2rem;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For smaller devices */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px;
+    }
+
+    .dashboard {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .instrument-section h3 {
+        font-size: 1.6rem;
+    }
+
+    .instruments-list {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .categories-list {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-bar input {
+        font-size: 0.9rem;
+    }
+}
+
+/* For mobile screens */
+@media (max-width: 480px) {
+    .dashboard {
+        padding: 10px;
+    }
+
+    .greeting {
+        font-size: 1rem;
+    }
+
+    .instrument-section h3 {
+        font-size: 1.4rem;
+    }
+
+    .instrument-card h4 {
+        font-size: 1rem;
+    }
+
+    .instrument-detail button.back-button {
+        font-size: 0.9rem;
+    }
+
+    .categories-list button {
+        font-size: 0.9rem;
+    }
+
+    .search-bar input {
+        font-size: 0.9rem;
+    }
+
+    .instruments-list {
+        grid-template-columns: 1fr;
+    }
+
+    .feedback-section textarea {
+        height: 120px;
+    }
+
+    .feedback-section button.submit-feedback-btn {
+        font-size: 1rem;
+    }
+}

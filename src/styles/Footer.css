@@ -1,0 +1,43 @@
+/* Footer.css */
+html, body {
+    height: 100%; /* Set full height for html and body */
+    margin: 0; /* Remove default margin */
+}
+
+.wrapper {
+    min-height: 100vh; /* Ensure the wrapper takes at least full viewport height */
+    display: flex;
+    flex-direction: column; /* Arrange children in a column */
+}
+
+.footer {
+    background-color: #4CAF50; 
+    color: #fff; /* White text */
+    padding: 20px; /* Space around the content */
+    text-align: center; /* Center the text */
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+.footer-content {
+    max-width: 1200px; /* Max width for the content */
+    margin: 0 auto; /* Center the content */
+}
+
+.footer-links {
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+}
+
+.footer-links li {
+    display: inline; /* Align items horizontally */
+    margin: 0 15px; /* Space between links */
+}
+
+.footer-links a {
+    color: #fff; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+}

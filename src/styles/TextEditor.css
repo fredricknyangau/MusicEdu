@@ -1,0 +1,61 @@
+.text-editor-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 800px;
+    margin: auto;
+    width: 100%;
+  }
+  
+  .react-quill {
+    min-height: 250px;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    width: 100%;
+  }
+  
+  .react-quill .ql-toolbar {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .react-quill .ql-container {
+    background-color: #ffffff;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .text-editor-container {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .react-quill {
+      font-size: 14px;
+    }
+  
+    .react-quill .ql-toolbar {
+      padding: 8px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .text-editor-container {
+      padding: 12px;
+      max-width: 100%;
+    }
+  
+    .react-quill {
+      font-size: 12px;
+      min-height: 200px;
+    }
+  
+    .react-quill .ql-toolbar {
+      padding: 6px;
+    }
+  }
+  

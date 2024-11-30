@@ -1,0 +1,65 @@
+
+.auth-container {
+    max-width: 400px; /* Set a max width for the form */
+    margin: 50px auto; /* Center the form horizontally and add vertical margin */
+    padding: 20px; /* Add padding around the form */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #ffffff; /* White background */
+    text-align: center; /* Center text */
+}
+
+.auth-container h1 {
+    margin-bottom: 20px; /* Space below the heading */
+    font-size: 24px; /* Font size for the heading */
+    color: #333; /* Dark gray text color */
+}
+
+.auth-container input {
+    width: 100%; /* Full width input fields */
+    padding: 10px; /* Padding inside the input */
+    margin: 10px 0; /* Space above and below the input */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 16px; /* Font size for the input text */
+}
+
+.auth-container input:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove outline */
+}
+
+.auth-container button {
+    width: 100%; /* Full width button */
+    padding: 10px; /* Padding inside the button */
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 16px; /* Font size for the button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.auth-container button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.auth-container .error {
+    color: red; /* Red color for error messages */
+    margin-bottom: 15px; /* Space below the error message */
+}
+
+.auth-container p {
+    margin-top: 15px; /* Space above the paragraph */
+}
+
+.auth-container a {
+    color: #007bff; /* Blue link color */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.auth-container a:hover {
+    text-decoration: underline; /* Underline links on hover */
+}

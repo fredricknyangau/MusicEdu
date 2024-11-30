@@ -1,0 +1,193 @@
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container for the entire dashboard */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Header styles */
+header {
+    background: #4CAF50; /* Green background */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+}
+
+/* Feedback message styles */
+.feedback-message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.success-message {
+    background: #dff0d8;
+    color: #3c763d;
+}
+
+.error-message {
+    background: #f2dede;
+    color: #a94442;
+}
+
+/* Section styles */
+section {
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="file"],
+textarea,
+select {
+    display: block;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Button styles */
+.btn,
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover,
+button:hover {
+    background-color: #0056b3;
+   
+}
+
+/* Category list styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+/* Instrument card styles */
+.instrument {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.instrument img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.instrument video {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+        font-size: 0.9rem;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .instrument {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+    .btn,
+    button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .instrument h3 {
+        font-size: 1.2rem;
+    }
+}

@@ -1,50 +1,43 @@
 .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.message {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-
-.profile-info {
+    max-width: 100px;
+    margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.message {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #e0ffe0;
+    border: 1px solid #b0ffb0;
+    border-radius: 4px;
+    color: #333;
 }
 
 .profile-info p {
-    font-size: 16px;
-    margin: 10px 0;
+    margin-bottom: 10px;
+    color: #555;
 }
 
-button {
+.profile-info button {
+    margin-top: 10px;
+    padding: 10px;
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    margin: 5px;
 }
 
-button:hover {
+.profile-info button:hover {
     background-color: #0056b3;
 }
 
@@ -54,32 +47,39 @@ form {
 }
 
 form label {
-    margin-top: 10px;
+    margin-bottom: 5px;
     font-weight: bold;
+    color: #555;
 }
 
 form input {
-    padding: 8px;
-    margin: 5px 0;
+    margin-bottom: 10px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
-form input:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-form button {
+form button[type="submit"] {
+    padding: 10px;
     background-color: #28a745;
     color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+    background-color: #218838;
 }
 
 form button[type="button"] {
+    margin-top: 10px;
+    padding: 10px;
     background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 form button[type="button"]:hover {

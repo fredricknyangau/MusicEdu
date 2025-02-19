@@ -1,16 +1,20 @@
-.about {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.abot-page{
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+    background-color:#f9f9f9;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-.about h2 {
-    text-align: center;
-    color: #333;
+.about-page h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
 }
 
-.about p {
-    line-height: 1.5;
-    color: #666;
+.about-page p{
+    margin-bottom: 15px;
+    line-height:1.5;
+    color:#666;
 }

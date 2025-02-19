@@ -134,8 +134,6 @@ const AdminDashboard = () => {
             }
         };
         
-        
-
         fetchCategories();
         fetchInstruments();
         fetchAllUsers();
@@ -223,9 +221,6 @@ const AdminDashboard = () => {
         }
     };
 
-    
-    
-
     // Delete User
     const handleDeleteUser = async (userId) => {
         try {
@@ -234,7 +229,7 @@ const AdminDashboard = () => {
                 console.error("Token Missing");
                 return;
             }
-            const response = await fetch(`http://localhost:5000/api/users${userId}`, {
+            const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` },
             });
@@ -249,7 +244,7 @@ const AdminDashboard = () => {
             console.error('Error deleting user:', error);
         }
     };
-    
+
 
     // Respond to Feedback
     const handleRespondToFeedback = async (feedbackId, responseMessage) => {

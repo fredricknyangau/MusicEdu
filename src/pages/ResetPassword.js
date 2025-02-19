@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
 import '../styles/Auth.css';
 
@@ -8,6 +8,7 @@ const ResetPassword = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     // Extract the reset token from the URL
     const query = new URLSearchParams(useLocation().search);
@@ -25,6 +26,9 @@ const ResetPassword = () => {
             await authService.resetPassword(token, newPassword);
             setMessage('Password has been reset successfully.');
             setError('');
+            setTimeout(() => {
+                navigate('/login');
+            }, 3000);// Redirect to login page after 3 seconds
         } catch (err) {
             setError('Failed to reset password. Please try again.');
             setMessage('');

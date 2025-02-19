@@ -24,7 +24,8 @@ const UserDashboard = () => {
         if (storedUser) {
             setUser(storedUser);
         }
-
+        
+        //fetch instruments and categories
         const fetchInstruments = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -47,11 +48,33 @@ const UserDashboard = () => {
                     setFilteredInstruments(data);
                 } else {
                     console.error('Failed to fetch instruments, status:', response.status);
+                    const fallbackData = await fetchFallbackData();
+                    setInstruments(fallbackData);
+                    setFilteredInstruments(fallbackData);
+                    
                 }
             } catch (error) {
                 console.error('Error fetching instruments:', error);
+                // Use the fallback dataset from the JSON file if there is an error
+                const fallbackData = await fetchFallbackData();
+                setInstruments(fallbackData);
+                setFilteredInstruments(fallbackData);
             } finally {
                 setLoading(false);
+            }
+        };
+
+        // Function to fetch the fallback dataset from the instruments.json file
+        const fetchFallbackData = async () => {
+            try {
+            const response = await fetch('/instruments.json');
+            if (!response.ok) {
+                throw new Error('Failed to fetch fallback data');
+            }
+            return await response.json();
+            } catch (error) {
+            console.error('Error loading fallback data:', error);
+            return []; // Return an empty array if there's an error fetching the fallback data
             }
         };
 

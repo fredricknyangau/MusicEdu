@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Djembe",
+    "categories": "Percussion",
+    "description": "The Djembe is a rope-tuned, skin-covered goblet drum that produces a wide range of sounds, including deep bass tones, sharp slaps, and resonant mids. Played primarily with the hands, this versatile instrument is central to the traditional music of West Africa. It is known for its powerful and expressive nature, capable of conveying a wide array of rhythms and emotions.",
+    "historicalBackground": "The Djembe originates from the Manding peoples of West Africa, particularly in countries like Mali, Guinea, and Ivory Coast. It has been an essential part of African culture for centuries, used in various ceremonies, such as weddings, births, funerals, and community celebrations. The Djembe is traditionally played by a soloist or as part of an ensemble, and its rhythms are often accompanied by storytelling or dancing. The drum was traditionally made by skilled craftsmen, using wood from the Djembe tree and goat skin for the drumhead. Today, it is widely used in world music and contemporary genres.",
+    "image": "../assets/images/djembe.webp",
+    "audio": "../assets/audio/djembe.wav",
+    "video": "../assets/video/djembe.mp4"
+  },
+  {
+    "id": 2,
+    "name": "Kora",
+    "Category": "String",
+    "description": "The Kora is a 21-string lute-bridge-harp, traditionally played by griots, the West African storytellers and historians. This harp-like instrument has a rich, melodic sound, produced by plucking the strings with the thumb and index fingers. The Kora’s sound is distinctively clear and resonant, offering a smooth and reflective tone that makes it ideal for both accompaniment and solo performances.",
+    "historicalBackground": "The Kora has been used for centuries in West Africa, particularly in regions such as Mali, Senegal, and Guinea. It was developed by the Manding people and is deeply rooted in the region's oral traditions. The Kora is played by griots, who are responsible for preserving and transmitting the history, genealogies, and traditions of their communities through music. The instrument itself is often constructed using a large calabash gourd as its resonator, and it is traditionally strung with nylon or gut strings. Its role in African culture is both ceremonial and educational, and it continues to be a powerful symbol of the griot tradition. Today, the Kora is enjoyed worldwide, contributing to the global appreciation of African music and heritage.",
+    "image": "../assets/images/kora.jpg",
+    "audio": "../assets/audio/kora.mp3",
+    "video": "../assets/video/kora.mp4"
+  }
+]

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/instruments'; // Adjust the endpoint as needed
+const API_URL = 'https://music-edu-backend.vercel.app'; // Backend(http://localhost:5000/api/instruments)
 
 export const fetchInstruments = async () => {
     const response = await axios.get(API_URL);

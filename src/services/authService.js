@@ -1,4 +1,4 @@
-const API_URL = 'https://music-edu-backend.vercel.app'; //backend API URL(http://localhost:5000/api/auth)
+const API_URL = 'https://music-edu-backend.vercel.app/api/auth'; //backend API URL(http://localhost:5000/api/auth)
 
 // General API request function
 const apiRequest = async (endpoint, method, data) => {

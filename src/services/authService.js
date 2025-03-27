@@ -4,27 +4,39 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/auth
 const apiRequest = async (endpoint, method, data = null) => {
     try {
         const token = localStorage.getItem('token'); // Retrieve stored token
+
+        // Set request headers
         const headers = {
             'Content-Type': 'application/json',
             ...(token && { Authorization: `Bearer ${token}` }) // Include token if available
         };
 
-        const response = await fetch(`${API_URL}/${endpoint}`, {
+        // Configure request options
+        const options = {
             method,
             headers,
-            body: data ? JSON.stringify(data) : null,
-            credentials: 'include', // Include credentials (cookies if needed)
-        });
+            credentials: 'include', // Include credentials (e.g., cookies if needed)
+        };
 
+        if (data) options.body = JSON.stringify(data); // Add body only if data exists
+
+        // Send API request
+        const response = await fetch(`${API_URL}/${endpoint}`, options);
+
+        // Check if response is HTML (error page)
+        const contentType = response.headers.get('content-type');
         if (!response.ok) {
+            if (contentType && contentType.includes('text/html')) {
+                throw new Error(`Unexpected HTML response. Check if "${API_URL}/${endpoint}" exists.`);
+            }
             const errorData = await response.json();
             throw new Error(errorData.msg || 'An error occurred. Please try again.');
         }
 
         return await response.json(); // Return response data
     } catch (error) {
-        console.error(`Error in ${endpoint}:`, error.message);
-        throw error; // Rethrow the error for handling in components
+        console.error(`API Error in "${endpoint}":`, error.message);
+        throw error; // Rethrow error for component handling
     }
 };
 

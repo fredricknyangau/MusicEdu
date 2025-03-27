@@ -27,7 +27,9 @@ const apiRequest = async (endpoint, method, data = null) => {
         const contentType = response.headers.get('content-type');
         if (!response.ok) {
             if (contentType && contentType.includes('text/html')) {
-                throw new Error(`Unexpected HTML response. Check if "${API_URL}/${endpoint}" exists.`);
+                const errorText = await response.text();
+                console.error(`HTML Response Error:`, errorText);
+                throw new Error(`Unexpected HTML response. Check if "${API_URL}/${endpoint}" exists and is correctly configured.`);
             }
             const errorData = await response.json();
             throw new Error(errorData.msg || 'An error occurred. Please try again.');

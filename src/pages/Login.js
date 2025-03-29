@@ -1,37 +1,36 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import authService from '../services/authService'; // Import the auth service
-import '../styles/Auth.css'; // Styling
+import '../styles/Auth.css'; // Import styling
 
 const Login = () => {
     const [identifier, setIdentifier] = useState(''); // Email or Username
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    const navigate = useNavigate(); // React Router navigation
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ identifier, password }); // Log the payload for debugging
+        setError(''); // Clear previous errors
 
         try {
-            const response = await authService.login({
-                identifier, // Email or username
-                password,
-            });
+            const response = await authService.login({ identifier, password });
 
-            console.log(response); // Log the response for debugging
+            console.log('Login response:', response); // Log response for debugging
 
-            // On successful login, the token and user data should be stored in localStorage.
-            const token = localStorage.getItem('token');
-            console.log('Token stored:', token); // Ensure token is saved in localStorage
-
-            //Redirect based on user role
-            if (response.user.role === 'admin') {
-                window.location.href = '/admin';
+            if (response.token) {
+                localStorage.setItem('token', response.token); // Store token properly
+                console.log('Token stored:', response.token);
             } else {
-                window.location.href = '/dashboard'; // Redirect to dashboard or user area
+                throw new Error('No token received');
             }
+
+            // Redirect based on user role
+            navigate(response.user.role === 'admin' ? '/admin' : '/dashboard');
         } catch (error) {
-            setError('Failed to log in. Please try again.');
-            console.error(error); // Log error for debugging
+            console.error('Login error:', error);
+            setError(error.response?.data?.msg || 'Failed to log in. Please try again.');
         }
     };
 
@@ -39,23 +38,29 @@ const Login = () => {
         <div className="auth-container">
             <h1>Log In</h1>
             {error && <p className="error">{error}</p>}
+
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     placeholder="Email or Username"
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
+                    autoComplete="username"
                     required
                 />
+
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
                     required
                 />
+
                 <button type="submit">Log In</button>
             </form>
+
             <p>
                 Don't have an account? <a href="/signup">Sign up</a>
             </p>

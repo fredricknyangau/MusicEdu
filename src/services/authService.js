@@ -50,10 +50,10 @@ const apiRequest = async (endpoint, method, data = null) => {
 };
 
 const authService = {
-    signUp: async (userData) => await apiRequest('/signup', 'POST', userData),
+    signUp: async (userData) => await apiRequest('/api/auth/signup', 'POST', userData),
 
     login: async (loginData) => {
-        const data = await apiRequest('/login', 'POST', loginData);
+        const data = await apiRequest('/api/auth/login', 'POST', loginData);
         localStorage.setItem('token', data.token); // Store JWT token
         localStorage.setItem('user', JSON.stringify(data.user)); // Store user data
         return data;
@@ -66,9 +66,9 @@ const authService = {
 
     requestPasswordReset: async (email) => await apiRequest('/forgot-password', 'POST', { identifier: email }),
 
-    resetPassword: async (token, newPassword) => await apiRequest('/reset-password', 'POST', { token, newPassword }),
+    resetPassword: async (token, newPassword) => await apiRequest('/api/auth/reset-password', 'POST', { token, newPassword }),
 
-    getUserProfile: async () => await apiRequest('/profile', 'GET'),
+    getUserProfile: async () => await apiRequest('/api/auth/profile', 'GET'),
 };
 
 export default authService;

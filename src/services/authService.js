@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/auth';
+const API_URL = 'https://music-edu-backend.vercel.app/api/auth'; // Hardcoded API URL
 
 // General API request function
 const apiRequest = async (endpoint, method, data = null) => {
@@ -27,9 +27,6 @@ const apiRequest = async (endpoint, method, data = null) => {
         // Ensure endpoint starts with "/"
         const formattedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
 
-        // Log API request URL for debugging
-        console.log(`API Request: ${API_URL}${formattedEndpoint}`);
-
         // Send API request
         const response = await fetch(`${API_URL}${formattedEndpoint}`, options);
 
@@ -52,25 +49,21 @@ const apiRequest = async (endpoint, method, data = null) => {
     }
 };
 
+// Auth service with fixed endpoints
 const authService = {
     signUp: async (userData) => await apiRequest('/signup', 'POST', userData),
-
     login: async (loginData) => {
         const data = await apiRequest('/login', 'POST', loginData);
         localStorage.setItem('token', data.token); // Store JWT token
         localStorage.setItem('user', JSON.stringify(data.user)); // Store user data
         return data;
     },
-
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
     },
-
     requestPasswordReset: async (email) => await apiRequest('/forgot-password', 'POST', { identifier: email }),
-
     resetPassword: async (token, newPassword) => await apiRequest('/reset-password', 'POST', { token, newPassword }),
-
     getUserProfile: async () => await apiRequest('/profile', 'GET'),
 };
 

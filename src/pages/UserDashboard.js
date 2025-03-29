@@ -34,7 +34,7 @@ const UserDashboard = () => {
                     return;
                 }
 
-                const response = await fetch('http://localhost:5000/api/instruments', {
+                const response = await fetch('https://music-edu-backend.vercel.app/api/instruments', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -86,7 +86,7 @@ const UserDashboard = () => {
                     return;
                 }
 
-                const response = await fetch('http://localhost:5000/api/categories', {
+                const response = await fetch('https://music-edu-backend.vercel.app/api/categories', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -163,7 +163,7 @@ const UserDashboard = () => {
         setSubmitStatus('Submitting feedback...');
 
         try {
-            const response = await fetch('http://localhost:5000/api/feedback', {
+            const response = await fetch('https://music-edu-backend.vercel.app/api/feedback', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -195,7 +195,7 @@ const UserDashboard = () => {
     const fetchFeedbackResponse = async (feedbackId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5000/api/feedback/${feedbackId}`, {
+            const response = await fetch(`https://music-edu-backend.vercel.app/api/feedback/${feedbackId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -269,7 +269,7 @@ const UserDashboard = () => {
 
                         {selectedInstrument.image && (
                             <img
-                            src={`http://localhost:5000/${selectedInstrument.image}`}
+                            src={`https://music-edu-backend.vercel.app/${selectedInstrument.image}`}
                             alt={selectedInstrument.name}
                             className="instrument-image"
                             />
@@ -294,7 +294,7 @@ const UserDashboard = () => {
                             {selectedInstrument.audio ? (
                             <audio controls>
                                 <source
-                                src={`http://localhost:5000/${selectedInstrument.audio}`}
+                                src={`https://music-edu-backend.vercel.app/${selectedInstrument.audio}`}
                                 type="audio/mp3"
                                 />
                                 Your browser does not support the audio element.
@@ -309,7 +309,7 @@ const UserDashboard = () => {
                             {selectedInstrument.video ? (
                             <video controls>
                                 <source
-                                src={`http://localhost:5000/${selectedInstrument.video}`}
+                                src={`https://music-edu-backend.vercel.app/${selectedInstrument.video}`}
                                 type="video/mp4"
                                 />
                                 Your browser does not support the video element.
@@ -354,7 +354,7 @@ const UserDashboard = () => {
                                 className="instrument-card"
                                 onClick={() => handleInstrumentClick(instrument)} >
                                 <img
-                                    src={`http://localhost:5000/${instrument.image}`}
+                                    src={`https://music-edu-backend.vercel.app/${instrument.image}`}
                                     alt={instrument.name}
                                     className="instrument-image"
                                 />

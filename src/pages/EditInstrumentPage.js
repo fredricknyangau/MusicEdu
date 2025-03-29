@@ -20,7 +20,7 @@ const EditInstrumentPage = () => {
     const fetchInstrumentDetails = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/instruments/${instrumentId}`, {
+        const response = await fetch(`https://music-edu-backend.vercel.app/api/instruments/${instrumentId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

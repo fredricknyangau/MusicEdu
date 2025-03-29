@@ -21,7 +21,7 @@ const Profile = () => {
     // Function to send logs to the backend
     const sendLogToBackend = async (action, username, details) => {
         try {
-            const response = await fetch('http://localhost:5000/api/security-logs', {
+            const response = await fetch('https://music-edu-backend.vercel.app/api/security-logs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

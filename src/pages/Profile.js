@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Profile.css';
 
+const API_URL = 'https://music-edu-backend.vercel.app/api';
+
 const Profile = () => {
     const [user, setUser] = useState({
         firstName: '',
@@ -21,22 +23,13 @@ const Profile = () => {
     // Function to send logs to the backend
     const sendLogToBackend = async (action, username, details) => {
         try {
-            const response = await fetch('https://music-edu-backend.vercel.app/api/security-logs', {
+            const response = await fetch(`${API_URL}/security-logs`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action,
-                    user: username,
-                    additionalInfo: details,
-                    actionDetails: details,
-                }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action, user: username, additionalInfo: details })
             });
 
-            if (!response.ok) {
-                console.error('Failed to send log');
-            }
+            if (!response.ok) console.error('Failed to send log');
         } catch (error) {
             console.error('Error sending log:', error);
         }
@@ -53,20 +46,16 @@ const Profile = () => {
 
             setLoading(true);
             try {
-                const response = await fetch('https://music-edu-backend.vercel.app/api/users/profile', {
+                const response = await fetch(`${API_URL}/users/profile`, {
                     method: 'GET',
-                    headers: {'Authorization': `Bearer ${token}`}
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
 
-                if (!response.ok) {
-                    throw new Error('Failed to fetch profile');
-                }
+                if (!response.ok) throw new Error('Failed to fetch profile');
 
                 const data = await response.json();
                 setUser(data);
                 setFormData(data);
-
-                // Log profile fetching action with details
                 sendLogToBackend('Profile Fetch', data.username, `User ${data.username} fetched their profile`);
             } catch (error) {
                 setMessage('Error fetching profile: ' + error.message);
@@ -79,10 +68,7 @@ const Profile = () => {
     }, []);
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
@@ -95,7 +81,7 @@ const Profile = () => {
 
         setLoading(true);
         try {
-            const response = await fetch('https://music-edu-backend.vercel.app/api/users/profile', {
+            const response = await fetch(`${API_URL}/users/profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,17 +90,13 @@ const Profile = () => {
                 body: JSON.stringify(formData)
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to update profile');
-            }
+            if (!response.ok) throw new Error('Failed to update profile');
 
             const data = await response.json();
             setUser(data);
             setIsEditing(false);
             setMessage('Profile updated successfully!');
-
-            // Log profile update action with details (updated fields)
-            sendLogToBackend('Profile Update', data.username, `User ${data.username} updated their profile. Updated fields: ${Object.keys(formData).join(', ')}`);
+            sendLogToBackend('Profile Update', data.username, `Updated fields: ${Object.keys(formData).join(', ')}`);
         } catch (error) {
             setMessage('Error updating profile: ' + error.message);
         } finally {
@@ -140,40 +122,16 @@ const Profile = () => {
                     ) : (
                         <form onSubmit={handleSubmit}>
                             <label htmlFor="username">Username:</label>
-                            <input
-                                type="text"
-                                name="username"
-                                value={formData.username}
-                                onChange={handleChange}
-                                required
-                            />
+                            <input type="text" name="username" value={formData.username} onChange={handleChange} required />
 
                             <label htmlFor="firstName">First Name:</label>
-                            <input
-                                type="text"
-                                name="firstName"
-                                value={formData.firstName}
-                                onChange={handleChange}
-                                required
-                            />
+                            <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
 
                             <label htmlFor="lastName">Last Name:</label>
-                            <input
-                                type="text"
-                                name="lastName"
-                                value={formData.lastName}
-                                onChange={handleChange}
-                                required
-                            />
+                            <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
 
                             <label htmlFor="email">Email:</label>
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
+                            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
 
                             <button type="submit">Save Changes</button>
                             <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>

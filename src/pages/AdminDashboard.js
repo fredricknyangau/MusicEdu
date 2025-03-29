@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Admin.css';
 
+const API_URL = 'https://music-edu-backend.vercel.app/api';
+
 const AdminDashboard = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -24,7 +26,7 @@ const AdminDashboard = () => {
         const fetchCategories = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('https://music-edu-backend.vercel.app/api/categories', {
+                const response = await fetch(`${API_URL}/categories`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
@@ -44,7 +46,7 @@ const AdminDashboard = () => {
         const fetchInstruments = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5000/api/instruments', {
+                const response = await fetch(`${API_URL}/instruments`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
@@ -64,7 +66,7 @@ const AdminDashboard = () => {
         const fetchAllUsers = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5000/api/users', {
+                const response = await fetch(`${API_URL}/users`, {
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
 
@@ -93,7 +95,7 @@ const AdminDashboard = () => {
                 // Set loading state
                 setMessage('Fetching feedbacks...');
         
-                const response = await fetch('http://localhost:5000/api/feedback', {
+                const response = await fetch(`${API_URL}/feedback`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -117,7 +119,7 @@ const AdminDashboard = () => {
         const fetchSecurityLogs = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5000/api/security-logs', {
+                const response = await fetch(`${API_URL}/security-logs`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
@@ -153,7 +155,7 @@ const AdminDashboard = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/api/categories', {
+            const response = await fetch(`${API_URL}/categories`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -194,7 +196,7 @@ const AdminDashboard = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/api/instruments', {
+            const response = await fetch(`${API_URL}/instruments`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData,
@@ -229,7 +231,7 @@ const AdminDashboard = () => {
                 console.error("Token Missing");
                 return;
             }
-            const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
+            const response = await fetch(`${API_URL}/users/${userId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` },
             });
@@ -255,7 +257,7 @@ const AdminDashboard = () => {
         }
     
         try {
-            const response = await fetch(`http://localhost:5000/api/feedback/${feedbackId}/response`, {
+            const response = await fetch(`${API_URL}/feedback/${feedbackId}/response`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

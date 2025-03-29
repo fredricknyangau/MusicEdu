@@ -4,6 +4,8 @@ import { FaSearch, FaUserCircle, FaArrowLeft } from 'react-icons/fa';
 import '../styles/UserDashboard.css';
 import DOMPurify from 'dompurify';
 
+const API_URL = 'https://music-edu-backend.vercel.app/api';
+
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
     const [instruments, setInstruments] = useState([]);
@@ -34,7 +36,7 @@ const UserDashboard = () => {
                     return;
                 }
 
-                const response = await fetch('https://music-edu-backend.vercel.app/api/instruments', {
+                const response = await fetch(`${API_URL}/instruments`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -86,7 +88,7 @@ const UserDashboard = () => {
                     return;
                 }
 
-                const response = await fetch('https://music-edu-backend.vercel.app/api/categories', {
+                const response = await fetch(`${API_URL}/categories`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -163,7 +165,7 @@ const UserDashboard = () => {
         setSubmitStatus('Submitting feedback...');
 
         try {
-            const response = await fetch('https://music-edu-backend.vercel.app/api/feedback', {
+            const response = await fetch(`${API_URL}/feedback`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -195,7 +197,7 @@ const UserDashboard = () => {
     const fetchFeedbackResponse = async (feedbackId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`https://music-edu-backend.vercel.app/api/feedback/${feedbackId}`, {
+            const response = await fetch(`${API_URL}/feedback/${feedbackId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

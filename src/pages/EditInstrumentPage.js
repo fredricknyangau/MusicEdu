@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import TextEditor from '../components/TextEditor';
 import '../styles/EditInstrumentPage.css';
 
+const API_URL = 'https://music-edu-backend.vercel.app/api';
+
 const EditInstrumentPage = () => {
   const { instrumentId } = useParams();
   const [instrument, setInstrument] = useState(null);
@@ -20,7 +22,7 @@ const EditInstrumentPage = () => {
     const fetchInstrumentDetails = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`https://music-edu-backend.vercel.app/api/instruments/${instrumentId}`, {
+        const response = await fetch(`${API_URL}/instruments/${instrumentId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -45,7 +47,7 @@ const EditInstrumentPage = () => {
     const fetchCategories = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/categories', {
+        const response = await fetch(`${API_URL}/categories`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -81,7 +83,7 @@ const EditInstrumentPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/instruments/${instrumentId}`, {
+      const response = await fetch(`${API_URL}/instruments/${instrumentId}`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData,

@@ -3,71 +3,72 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/auth
 // General API request function
 const apiRequest = async (endpoint, method, data = null) => {
     try {
-        const token = localStorage.getItem('token'); // Retrieve stored token
+        const token = localStorage.getItem('token');
 
         // Set request headers
         const headers = {
             'Content-Type': 'application/json',
-            ...(token && { Authorization: `Bearer ${token}` }) // Include token if available
         };
+
+        // Include Authorization header only for protected routes
+        const publicEndpoints = ['/signup', '/login', '/forgot-password', '/reset-password'];
+        if (!publicEndpoints.includes(endpoint) && token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
 
         // Configure request options
         const options = {
             method,
             headers,
-            credentials: 'include', // Include credentials (e.g., cookies if needed)
         };
 
-        if (data) options.body = JSON.stringify(data); // Add body only if data exists
+        if (data) options.body = JSON.stringify(data);
+
+        // Ensure endpoint starts with "/"
+        const formattedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
 
         // Send API request
-        const response = await fetch(`${API_URL}/${endpoint}`, options);
+        const response = await fetch(`${API_URL}${formattedEndpoint}`, options);
 
-        // Check if response is HTML (error page)
+        // Check for errors
         const contentType = response.headers.get('content-type');
         if (!response.ok) {
             if (contentType && contentType.includes('text/html')) {
                 const errorText = await response.text();
                 console.error(`HTML Response Error:`, errorText);
-                throw new Error(`Unexpected HTML response. Check if "${API_URL}/${endpoint}" exists and is correctly configured.`);
+                throw new Error(`Unexpected HTML response. Check if "${API_URL}${formattedEndpoint}" exists and is correctly configured.`);
             }
             const errorData = await response.json();
-            throw new Error(errorData.msg || 'An error occurred. Please try again.');
+            throw new Error(errorData.message || 'An error occurred. Please try again.');
         }
 
-        return await response.json(); // Return response data
+        return await response.json();
     } catch (error) {
         console.error(`API Error in "${endpoint}":`, error.message);
-        throw error; // Rethrow error for component handling
+        throw error;
     }
 };
 
 const authService = {
-    // User Registration
-    signUp: async (userData) => await apiRequest('signup', 'POST', userData),
+    signUp: async (userData) => await apiRequest('/signup', 'POST', userData),
 
-    // User Login
     login: async (loginData) => {
-        const data = await apiRequest('login', 'POST', loginData);
+        const data = await apiRequest('/login', 'POST', loginData);
         localStorage.setItem('token', data.token); // Store JWT token
         localStorage.setItem('user', JSON.stringify(data.user)); // Store user data
         return data;
     },
 
-    // User Logout
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
     },
 
-    // Password Reset Request
-    requestPasswordReset: async (email) => await apiRequest('forgot-password', 'POST', { identifier: email }),
+    requestPasswordReset: async (email) => await apiRequest('/forgot-password', 'POST', { identifier: email }),
 
-    // Reset Password with Token
-    resetPassword: async (token, newPassword) => await apiRequest('reset-password', 'POST', { token, newPassword }),
+    resetPassword: async (token, newPassword) => await apiRequest('/reset-password', 'POST', { token, newPassword }),
 
-    // Fetch User Profile (Protected Route)
-    getUserProfile: async () => await apiRequest('profile', 'GET'),
+    getUserProfile: async () => await apiRequest('/profile', 'GET'),
 };
 
 export default authService;
